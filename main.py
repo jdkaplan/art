@@ -28,7 +28,7 @@ def main():
         if raw:
             input()
         else:
-            time.sleep(1)
+            time.sleep(0.3)
 
 
 
