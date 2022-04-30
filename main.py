@@ -18,13 +18,12 @@ def main():
     with open(args.pop(0)) as art:
         sim = Simulator(art.read(), palette)
 
-    print(sim)
-    for _ in range(2):
+    while True:
+        os.system("clear")
+        print(sim, end="")
+        if not sim.simulate():
+            break
         time.sleep(1)
-        # os.system("clear")
-        print("---------------------------")
-        sim.simulate()
-        print(sim)
 
 
 main()
