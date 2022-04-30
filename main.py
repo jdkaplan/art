@@ -18,12 +18,14 @@ def main():
     with open(args.pop(0)) as art:
         sim = Simulator(art.read(), palette)
 
+    raw = len(args) != 0 and args.pop(0) == 'r'
+
     while True:
         os.system("clear")
         print(sim, end="")
         if not sim.simulate():
             break
-        if len(args) != 0 and args.pop(0) == 'r':
+        if raw:
             input()
         else:
             time.sleep(1)
