@@ -77,13 +77,18 @@ class PaletteError(Exception):
 
 
 def parse_palette_line(spec_line: str):
-    if len(spec_line) != 9:
-        raise PaletteError(f"Palette line '{spec_line}' is wrong length")
-    for i in [1,3,5,7]:
+    for i in [1,3,5]:
         if spec_line[i] != " ":
             raise PaletteError(f"Invalid character at position {i} in palette line '{spec_line}'")
 
-    char, adv, repro, trans, spawn = spec_line.strip()[::2]
+    try:
+        char = spec_line[0]
+        adv = spec_line[2]
+        repro = spec_line[4]
+        trans = spec_line[6:-2]
+        spawn = spec_line[-1]
+    except Exception:
+        raise PaletteError(f"Error extracting fields from pallete line '{spec_line}'")
 
     if adv.lower() not in ADV_MAP:
         raise PaletteError(f"Invalid Advance character in palette line '{spec_line}'")
@@ -92,6 +97,17 @@ def parse_palette_line(spec_line: str):
     if repro not in "01":
         raise PaletteError(f"Invalid Reproduce character in palette line '{spec_line}'")
     repro = bool(int(repro))
+
+    trans_char = trans[-1]
+    stability = 1
+    if len(trans) > 1:
+        try:
+            stability = int(trans[:-1])
+            if stability < 1:
+                raise PaletteError(f"Nonpositive Stability factor in palette line '{spec_line}'")
+        except Exception:
+            raise PaletteError(f"Invalid Stability factor in palette line '{spec_line}'")
+    trans = (stability, trans_char)
 
     if spawn.lower() not in "nsew-#":
         raise PaletteError(f"Invalid Spawn character in palette line '{spec_line}'")
