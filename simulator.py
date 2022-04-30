@@ -74,5 +74,14 @@ class Simulator:
         return self.grid
 
     def __str__(self):
-        # TODO: bold the cursors
-        return "\n".join("".join(row) for row in self.grid)
+        string = ""
+        cursors = set((cursor.r, cursor.c) for cursor in self.cursors)
+        for row in range(self.row_count):
+            for col in range(self.col_count):
+                is_cursor = (row, col) in cursors
+                if is_cursor:
+                    string += "\033[1m" + self.grid[row][col] + "\033[0m"
+                else:
+                    string += self.grid[row][col]
+            string += "\n"
+        return string
