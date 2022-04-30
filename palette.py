@@ -46,15 +46,15 @@ ADV_MAP = {
 }
 
 
-def read_pallet(fname: str) -> dict:
-    pallet = {}
+def read_palette(fname: str) -> dict:
+    palette = {}
     with open(fname) as f:
         spec_lines = f.readlines()
         for spec_line in spec_lines:
             try:
                 char, adv, repro, trans, spawn = spec_line.strip().split(' ')
                 spawn_dir = None if spawn == '#' else ADV_MAP[spawn]((0,0))
-                pallet[char] = (ADV_MAP[adv.lower()], bool(int(repro)), trans, spawn_dir)
+                palette[char] = (ADV_MAP[adv.lower()], bool(int(repro)), trans, spawn_dir)
             except Exception:
-                raise Exception("ERR: Malformed Pallet!")
-    return pallet
+                raise Exception("ERR: Malformed Palette!")
+    return palette
