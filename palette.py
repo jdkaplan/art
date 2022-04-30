@@ -47,8 +47,37 @@ ADV_MAP = {
     "s": south,
     "e": east,
     "w": west,
-    "-": stay
+    "-": stay,
 }
+
+_default_palette = """\
+^ n 0 ^ n
+v s 0 v s
+> e 0 > e
+< w 0 < w
+
+. f 0 - #
+
+r r 0 r #
+l l 0 l #
+f f 0 f #
+b b 0 b #
+
+n n 0 n #
+s s 0 s #
+e e 0 e #
+w w 0 w #
+
+R R 1 R #
+L L 1 L #
+F F 1 F #
+B B 1 B #
+
+N N 1 N #
+S S 1 S #
+E E 1 E #
+W W 1 W #
+"""
 
 
 class Palette:
@@ -57,7 +86,7 @@ class Palette:
 
     @classmethod
     def default(cls):
-        return cls("TODO CHANGE ME")
+        return cls(_default_palette.splitlines())
 
     def __getitem__(self, key):
         return self.chars[key]
@@ -79,7 +108,9 @@ class PaletteError(Exception):
 def parse_palette_line(spec_line: str):
     for i in [1,3,5]:
         if spec_line[i] != " ":
-            raise PaletteError(f"Invalid character at position {i} in palette line '{spec_line}'")
+            raise PaletteError(
+                f"Invalid character at position {i} in palette line '{spec_line}'"
+            )
 
     try:
         char = spec_line[0]
@@ -117,4 +148,10 @@ def parse_palette_line(spec_line: str):
 
 
 def read_palette(spec_lines: list[str]) -> dict:
-    return dict([parse_palette_line(spec_line.strip()) for spec_line in spec_lines if spec_line.strip()])
+    return dict(
+        [
+            parse_palette_line(spec_line.strip())
+            for spec_line in spec_lines
+            if spec_line.strip()
+        ]
+    )
