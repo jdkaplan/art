@@ -147,7 +147,6 @@ def parse_palette_line(spec_line: str):
         raise PaletteError(f"Invalid Spawn character in palette line '{spec_line}'")
     spawn = None if spawn == "#" else ADV_MAP[spawn.lower()]((0, 0))
 
-    print(trans, stability)
     return (char, (adv, repro, trans, spawn, stability))
 
 
