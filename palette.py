@@ -153,7 +153,7 @@ def parse_palette_line(spec_line: str):
 def read_palette(spec_lines: list[str]) -> dict:
     palette = {}
     for spec_line in spec_lines:
-        line = spec_line.strip()
+        line = spec_line.rstrip()
         if not line:
             continue
 
