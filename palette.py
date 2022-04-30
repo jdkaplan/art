@@ -61,18 +61,33 @@ class Palette:
         return key in self.chars
 
 
+class PaletteError(Exception):
+    pass
+
+
+def parse_palette_line(spec_line: str):
+    if len(spec_line) != 9:
+        raise PaletteError(f"Palette line '{spec_line}' is wrong length")
+    for i in [1,3,5,7]:
+        if spec_line[i] != " ":
+            raise PaletteError(f"Invalid character at position {i} in palette line '{spec_line}'")
+
+    char, adv, repro, trans, spawn = spec_line.strip()[::2]
+
+    if adv.lower() not in ADV_MAP:
+        raise PaletteError(f"Invalid Advance character in palette line '{spec_line}'")
+    adv = ADV_MAP[adv.lower()]
+
+    if repro not in "01":
+        raise PaletteError(f"Invalid Reproduce character in palette line '{spec_line}'")
+    repro = bool(int(repro))
+
+    if spawn.lower() not in "nsew#":
+        raise PaletteError(f"Invalid Spawn character in palette line '{spec_line}'")
+    spawn = None if spawn == "#" else ADV_MAP[spawn.lower()]((0, 0))
+
+    return (char, (adv, repro, trans, spawn))
+
+
 def read_palette(spec_lines: list[str]) -> dict:
-    palette = {}
-    for spec_line in spec_lines:
-        try:
-            char, adv, repro, trans, spawn = spec_line.strip()[::2]
-            spawn_dir = None if spawn == "#" else ADV_MAP[spawn.lower()]((0, 0))
-            palette[char] = (
-                ADV_MAP[adv.lower()],
-                bool(int(repro)),
-                trans,
-                spawn_dir,
-            )
-        except Exception:
-            raise Exception("ERR: Malformed Palette!")
-    return palette
+    return dict([parse_palette_line(spec_line.strip()) for spec_line in spec_lines])
