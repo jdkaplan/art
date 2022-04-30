@@ -33,15 +33,20 @@ class Cursor:
 
 class Simulator:
     def __init__(self, grid, language):
+        counter_index = 4
+        cursor_index = 3
+
         self.cursors = set()
-        self.grid = [[col for col in row] for row in grid.splitlines()]
+        fake_lang = (None, None, None, None, 1)
+        self.grid = [
+            [(language.get(col, fake_lang)[counter_index], col) for col in row]
+            for row in grid.splitlines()]
         self.row_count = len(self.grid)
         self.col_count = max(len(row) for row in self.grid)
         self.language = language
-        cursor_index = 3
         for r in range(self.row_count):
             for c in range(self.col_count):
-                char = self.grid[r][c]
+                char = self.grid[r][c][1]
                 if char not in self.language:
                     continue
 
@@ -59,9 +64,9 @@ class Simulator:
         cursors = list(self.cursors)
         self.cursors.clear()
         for cursor in cursors:
-            if self.grid[cursor.r][cursor.c] in self.language:
-                (transform_fn, reproduce, _, _) = self.language[
-                    self.grid[cursor.r][cursor.c]
+            if self.grid[cursor.r][cursor.c][1] in self.language:
+                (transform_fn, reproduce, _, _, _) = self.language[
+                    self.grid[cursor.r][cursor.c][1]
                 ]
                 if reproduce:
                     locs.add((cursor.r, cursor.c))
@@ -73,7 +78,16 @@ class Simulator:
                 self.cursors.add(cursor)
 
         for r, c in locs:
-            (_, _, output, _) = self.language[self.grid[r][c]]
+            counter, current = self.grid[r][c]
+            if counter == 1:
+                (_, _, next_char, _, _) = self.language[current]
+                counter_index = 4
+                if next_char in self.language:
+                    output = (self.language[next_char][counter_index], next_char)
+                else:
+                    output = (1, next_char)
+            else:
+                output = (counter - 1, current)
             self.grid[r][c] = output
 
         return len(self.cursors) != 0
@@ -88,8 +102,8 @@ class Simulator:
             for col in range(self.col_count):
                 is_cursor = (row, col) in cursors
                 if is_cursor:
-                    string += "\033[1m" + self.grid[row][col] + "\033[0m"
+                    string += "\033[1m" + self.grid[row][col][1] + "\033[0m"
                 else:
-                    string += self.grid[row][col]
+                    string += self.grid[row][col][1]
             string += "\n"
         return string
