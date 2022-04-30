@@ -98,7 +98,6 @@ def parse_palette_line(spec_line: str):
         raise PaletteError(f"Invalid Reproduce character in palette line '{spec_line}'")
     repro = bool(int(repro))
 
-    trans_char = trans[-1]
     stability = 1
     if len(trans) > 1:
         try:
@@ -107,13 +106,14 @@ def parse_palette_line(spec_line: str):
                 raise PaletteError(f"Nonpositive Stability factor in palette line '{spec_line}'")
         except Exception:
             raise PaletteError(f"Invalid Stability factor in palette line '{spec_line}'")
-    trans = (stability, trans_char)
+    trans = trans[-1]
 
     if spawn.lower() not in "nsew-#":
         raise PaletteError(f"Invalid Spawn character in palette line '{spec_line}'")
     spawn = None if spawn == "#" else ADV_MAP[spawn.lower()]((0, 0))
 
-    return (char, (adv, repro, trans, spawn))
+    print(trans, stability)
+    return (char, (adv, repro, trans, spawn, stability))
 
 
 def read_palette(spec_lines: list[str]) -> dict:
