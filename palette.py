@@ -65,6 +65,12 @@ class Palette:
     def __contains__(self, key):
         return key in self.chars
 
+    def get(self, key, default=None):
+        if key in self:
+            return self[key]
+        else:
+            return default
+
 
 class PaletteError(Exception):
     pass
