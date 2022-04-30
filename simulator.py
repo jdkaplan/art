@@ -57,14 +57,15 @@ class Simulator:
 
         locs = set()
         cursors = list(self.cursors)
+        self.cursors.clear()
         for cursor in cursors:
-            self.cursors.remove(cursor)
             if self.grid[cursor.r][cursor.c] in self.language:
                 (transform_fn, reproduce, _, _) = self.language[
                     self.grid[cursor.r][cursor.c]
                 ]
                 if reproduce:
                     locs.add((cursor.r, cursor.c))
+                    self.cursors.add(cursor)
                     cursor = Cursor(cursor.r, cursor.c, cursor.direction)
                 cursor.transform(transform_fn)
                 locs.add((cursor.r, cursor.c))

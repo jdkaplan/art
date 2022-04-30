@@ -23,7 +23,11 @@ def main():
         print(sim, end="")
         if not sim.simulate():
             break
-        time.sleep(1)
+        if len(args) != 0 and args.pop(0) == 'r':
+            input()
+        else:
+            time.sleep(1)
+
 
 
 main()
