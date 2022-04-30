@@ -1,40 +1,40 @@
 # advance functions
-def forward(direction: (int, int)) -> (int, int):
+def forward(direction: tuple[int, int]) -> tuple[int, int]:
     return direction
 
 
-def backward(direction: (int, int)) -> (int, int):
+def backward(direction: tuple[int, int]) -> tuple[int, int]:
     dr, dc = direction
     return (-dr, -dc)
 
 
-def right(direction: (int, int)) -> (int, int):
+def right(direction: tuple[int, int]) -> tuple[int, int]:
     dr, dc = direction
     return (dc, -dr)
 
 
-def left(direction: (int, int)) -> (int, int):
+def left(direction: tuple[int, int]) -> tuple[int, int]:
     dr, dc = direction
     return (-dc, dr)
 
 
-def north(direction: (int, int)) -> (int, int):
+def north(direction: tuple[int, int]) -> tuple[int, int]:
     return (-1, 0)
 
 
-def south(direction: (int, int)) -> (int, int):
+def south(direction: tuple[int, int]) -> tuple[int, int]:
     return (1, 0)
 
 
-def east(direction: (int, int)) -> (int, int):
+def east(direction: tuple[int, int]) -> tuple[int, int]:
     return (0, 1)
 
 
-def west(direction: (int, int)) -> (int, int):
+def west(direction: tuple[int, int]) -> tuple[int, int]:
     return (0, -1)
 
 
-def stay(direction: (int, int)) -> (int, int):
+def stay(direction: tuple[int, int]) -> tuple[int, int]:
     return (0, 0)
 
 
