@@ -34,6 +34,10 @@ def west(direction: (int, int)) -> (int, int):
     return (0, -1)
 
 
+def stay(direction: (int, int)) -> (int, int):
+    return (0, 0)
+
+
 ADV_MAP = {
     "f": forward,
     "b": backward,
@@ -43,6 +47,7 @@ ADV_MAP = {
     "s": south,
     "e": east,
     "w": west,
+    "-": stay
 }
 
 
@@ -82,7 +87,7 @@ def parse_palette_line(spec_line: str):
         raise PaletteError(f"Invalid Reproduce character in palette line '{spec_line}'")
     repro = bool(int(repro))
 
-    if spawn.lower() not in "nsew#":
+    if spawn.lower() not in "nsew-#":
         raise PaletteError(f"Invalid Spawn character in palette line '{spec_line}'")
     spawn = None if spawn == "#" else ADV_MAP[spawn.lower()]((0, 0))
 
