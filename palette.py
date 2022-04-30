@@ -75,5 +75,4 @@ def read_palette(spec_lines: list[str]) -> dict:
             )
         except Exception:
             raise Exception("ERR: Malformed Palette!")
-    print(palette)
     return palette
