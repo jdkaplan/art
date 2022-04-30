@@ -1,3 +1,6 @@
+import enum
+
+
 class Cursor:
     def __init__(self, r, c, direction):
         self.r = r
@@ -32,7 +35,7 @@ class Cursor:
 
 
 class Simulator:
-    def __init__(self, grid, language):
+    def __init__(self, grid, language, *, cursor_style="bold"):
         counter_index = 4
         cursor_index = 3
 
@@ -40,7 +43,8 @@ class Simulator:
         fake_lang = (None, None, None, None, 1)
         self.grid = [
             [(language.get(col, fake_lang)[counter_index], col) for col in row]
-            for row in grid.splitlines()]
+            for row in grid.splitlines()
+        ]
         self.row_count = len(self.grid)
         self.col_count = max(len(row) for row in self.grid)
         self.language = language
@@ -53,6 +57,8 @@ class Simulator:
                 cursor = self.language[char][cursor_index]
                 if cursor is not None:
                     self.add_cursor(Cursor(r, c, cursor))
+
+        self.cursor_style = cursor_style
 
     def add_cursor(self, cursor):
         self.cursors.add(cursor)
@@ -102,8 +108,16 @@ class Simulator:
             for col in range(self.col_count):
                 is_cursor = (row, col) in cursors
                 if is_cursor:
-                    string += "\033[1m" + self.grid[row][col][1] + "\033[0m"
+                    string += self._format_cursor(self.grid[row][col][1])
                 else:
                     string += self.grid[row][col][1]
             string += "\n"
         return string
+
+    def _format_cursor(self, char):
+        style = self.cursor_style
+        if style == "bold":
+            return "\033[1m" + char + "\033[0m"
+        if style == "inverse":
+            return "\033[7m" + char + "\033[m"
+        return char

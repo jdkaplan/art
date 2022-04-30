@@ -50,6 +50,13 @@ def parse_args():
         default=0,
         help="Increase logging output",
     )
+    parser.add_argument(
+        "-c",
+        "--cursor",
+        default="bold",
+        choices=["bold", "inverse"],
+        help="Set the cursor style",
+    )
     parser.add_argument("art", type=str, help="The art to execute")
 
     return parser.parse_args()
@@ -78,7 +85,7 @@ def main(args):
             palette = Palette.default()
 
     with open(args.art) as art:
-        canvas = Simulator(art.read(), palette)
+        canvas = Simulator(art.read(), palette, cursor_style=args.cursor)
 
     while True:
         if args.no_clear:
