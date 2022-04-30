@@ -106,7 +106,7 @@ class PaletteError(Exception):
 
 
 def parse_palette_line(spec_line: str):
-    for i in [1,3,5]:
+    for i in [1, 3, 5]:
         if spec_line[i] != " ":
             raise PaletteError(
                 f"Invalid character at position {i} in palette line '{spec_line}'"
@@ -134,9 +134,13 @@ def parse_palette_line(spec_line: str):
         try:
             stability = int(trans[:-1])
             if stability < 1:
-                raise PaletteError(f"Nonpositive Stability factor in palette line '{spec_line}'")
+                raise PaletteError(
+                    f"Nonpositive Stability factor in palette line '{spec_line}'"
+                )
         except Exception:
-            raise PaletteError(f"Invalid Stability factor in palette line '{spec_line}'")
+            raise PaletteError(
+                f"Invalid Stability factor in palette line '{spec_line}'"
+            )
     trans = trans[-1]
 
     if spawn.lower() not in "nsew-#":
@@ -148,10 +152,16 @@ def parse_palette_line(spec_line: str):
 
 
 def read_palette(spec_lines: list[str]) -> dict:
-    return dict(
-        [
-            parse_palette_line(spec_line.strip())
-            for spec_line in spec_lines
-            if spec_line.strip()
-        ]
-    )
+    palette = {}
+    for spec_line in spec_lines:
+        line = spec_line.strip()
+        if not line:
+            continue
+
+        char, spec = parse_palette_line(line)
+        if char in palette:
+            raise PaletteError(f"Duplicate palette key '{char}'")
+
+        palette[char] = spec
+
+    return palette
