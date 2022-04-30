@@ -37,6 +37,13 @@ def parse_args():
         default=False,
         help="Wait for an Enter press before ticking",
     )
+    parser.add_argument(
+        "-n",
+        "--no-clear",
+        action="store_true",
+        default=False,
+        help="Do not clear the screen between ticks (default: False)",
+    )
     parser.add_argument("art", type=str, help="The art to execute")
 
     return parser.parse_args()
@@ -53,7 +60,11 @@ def main(args):
         sim = Simulator(art.read(), palette)
 
     while True:
-        os.system("clear")
+        if args.no_clear:
+            print()
+        else:
+            os.system("clear")
+
         print(sim, end="")
 
         if not sim.simulate():
