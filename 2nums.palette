@@ -15,7 +15,8 @@ b W 0 c #
 c W 0 d #
 d W 0 e #
 e W 0 f #
-f W 0 0 #
+f S 0 0 #
+o E 0 1 #
 
 ! S 1 q S
 q - 0 ) #
@@ -41,8 +42,8 @@ u - 0 ^ #
 * S 1 i S
 i - 0 & #
 
-( S 1 o S
-o - 0 * #
+( S 1 / S
+/ - 0 * #
 
 A S 1 z S
 z - 0 ( #
