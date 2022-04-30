@@ -27,14 +27,19 @@ class Cursor:
 
 class Simulator:
     def __init__(self, grid, language):
-        self.cursors = {}
-        self.grid = [[col for col in row] for row in grid]
+        self.cursors = set()
+        self.grid = [[col for col in row] for row in grid.splitlines()]
         self.row_count = len(self.grid)
         self.col_count = max(len(row) for row in self.grid)
+        self.language = language
         cursor_index = 3
         for r in range(self.row_count):
             for c in range(self.col_count):
-                cursor = self.grid[r][c][cursor_index]
+                char = self.grid[r][c]
+                if char not in self.language:
+                    continue
+
+                cursor = self.language[char][cursor_index]
                 if cursor is not None:
                     self.add_cursor(Cursor(r, c, cursor))
 
@@ -42,22 +47,25 @@ class Simulator:
         self.cursors.add(cursor)
 
     def simulate(self):
-        """ Returns whether this was the last step of the simulation. """
+        """Returns whether this was the last step of the simulation."""
 
-        locs = {}
+        locs = set()
         cursors = list(self.cursors)
         for cursor in cursors:
             self.cursors.remove(cursor)
-            if self.grid[cursor.r][cursor.c] in language:
-                (transform_fn, reproduce, _, _) = self.grid[cursor.r][cursor.c]
+            if self.grid[cursor.r][cursor.c] in self.language:
+                (transform_fn, reproduce, _, _) = self.language[
+                    self.grid[cursor.r][cursor.c]
+                ]
                 if reproduce:
-                    cursor = Custor(cursor.r, cursor.c, cursor.direction)
+                    locs.add((cursor.r, cursor.c))
+                    cursor = Cursor(cursor.r, cursor.c, cursor.direction)
                 cursor.transform(transform_fn)
                 self.cursors.add(cursor)
-                locs.add((r, c))
+                locs.add((cursor.r, cursor.c))
 
         for r, c in locs:
-            (_, _, output, _) = self.grid[r][c]
+            (_, _, output, _) = self.language[self.grid[r][c]]
             self.grid[r][c] = output
 
         return len(self.cursors) != 0
@@ -65,5 +73,6 @@ class Simulator:
     def get_grid(self):
         return self.grid
 
-if __name__ == "__main__":
-    sim = Simulator([[]], {})
+    def __str__(self):
+        # TODO: bold the cursors
+        return "\n".join("".join(row) for row in self.grid)

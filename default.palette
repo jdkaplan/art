@@ -1,8 +1,8 @@
-a N 0 w N
-b S 1 x S
-c E 0 y E
-d W 1 z W
-^ F 0 w #
-v R 1 x #
-> B 0 y #
-< L 1 z #
+a N 0 w #
+b S 1 x #
+c E 0 y #
+d W 1 z #
+^ F 0 w N
+v R 1 x S
+> B 0 y E
+< L 1 z W
