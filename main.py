@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import argparse
+import logging
 import os
 import sys
 import time
@@ -7,9 +8,6 @@ import time
 
 from palette import Palette
 from simulator import Simulator
-
-
-# TODO(@jdkaplan): panic on palette failure
 
 
 def parse_args():
@@ -44,17 +42,40 @@ def parse_args():
         default=False,
         help="Do not clear the screen between ticks (default: False)",
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        dest="verbosity",
+        action="count",
+        default=0,
+        help="Increase logging output",
+    )
     parser.add_argument("art", type=str, help="The art to execute")
 
     return parser.parse_args()
 
 
 def main(args):
+    logging.basicConfig(
+        format="[%(levelname)s] %(message)s",
+        level=args.verbosity * 10,
+    )
+
     if args.palette:
         with open(args.palette) as pal:
             palette = Palette(pal.readlines())
     else:
-        palette = Palette.default()
+        try:
+            dir_ = os.path.dirname(args.art)
+            base, ext = os.path.splitext(os.path.basename(args.art))
+            path = os.path.join(dir_, base + ".palette")
+            with open(path) as pal:
+                palette = Palette(pal.readlines())
+        except OSError as e:
+            logging.info(
+                f"Did not find companion palette file at {path}. Using default palette."
+            )
+            palette = Palette.default()
 
     with open(args.art) as art:
         sim = Simulator(art.read(), palette)
