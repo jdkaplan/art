@@ -24,6 +24,12 @@ class Cursor:
     def __hash__(self):
         return hash((self.r, self.c, self.direction))
 
+    def __eq__(self, other):
+        return (self.r, self.c, self.direction) == (other.r, other.c, other.direction)
+
+    def __repr__(self):
+        return f"Cursor({self.r}, {self.c}, {self.direction})"
+
 
 class Simulator:
     def __init__(self, grid, language):
@@ -61,11 +67,9 @@ class Simulator:
                     locs.add((cursor.r, cursor.c))
                     cursor = Cursor(cursor.r, cursor.c, cursor.direction)
                 cursor.transform(transform_fn)
-                self.cursors.add(cursor)
                 locs.add((cursor.r, cursor.c))
-
-        for cursor in self.cursors:
-            cursor.move(self.row_count, self.col_count)
+                cursor.move(self.row_count, self.col_count)
+                self.cursors.add(cursor)
 
         for r, c in locs:
             (_, _, output, _) = self.language[self.grid[r][c]]
