@@ -64,6 +64,9 @@ class Simulator:
                 self.cursors.add(cursor)
                 locs.add((cursor.r, cursor.c))
 
+        for cursor in self.cursors:
+            cursor.move(self.row_count, self.col_count)
+
         for r, c in locs:
             (_, _, output, _) = self.language[self.grid[r][c]]
             self.grid[r][c] = output
