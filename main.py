@@ -78,7 +78,7 @@ def main(args):
             palette = Palette.default()
 
     with open(args.art) as art:
-        sim = Simulator(art.read(), palette)
+        canvas = Simulator(art.read(), palette)
 
     while True:
         if args.no_clear:
@@ -86,9 +86,9 @@ def main(args):
         else:
             os.system("clear")
 
-        print(sim, end="")
+        print(canvas, end="")
 
-        if not sim.simulate():
+        if not canvas.simulate():
             break
 
         if args.wait:
