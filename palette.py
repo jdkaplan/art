@@ -65,7 +65,7 @@ def read_palette(spec_lines: list[str]) -> dict:
     palette = {}
     for spec_line in spec_lines:
         try:
-            char, adv, repro, trans, spawn = spec_line.strip().split(" ")
+            char, adv, repro, trans, spawn = spec_line.strip()[::2]
             spawn_dir = None if spawn == "#" else ADV_MAP[spawn.lower()]((0, 0))
             palette[char] = (
                 ADV_MAP[adv.lower()],
@@ -75,4 +75,5 @@ def read_palette(spec_lines: list[str]) -> dict:
             )
         except Exception:
             raise Exception("ERR: Malformed Palette!")
+    print(palette)
     return palette
