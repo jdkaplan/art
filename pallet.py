@@ -2,29 +2,37 @@
 def forward(direction: (int, int)) -> (int, int):
     return direction
 
+
 def backward(direction: (int, int)) -> (int, int):
     dr, dc = direction
     return (-dr, -dc)
+
 
 def right(direction: (int, int)) -> (int, int):
     dr, dc = direction
     return (dc, -dr)
 
+
 def left(direction: (int, int)) -> (int, int):
     dr, dc = direction
     return (-dc, dr)
 
+
 def north(direction: (int, int)) -> (int, int):
     return (-1, 0)
+
 
 def south(direction: (int, int)) -> (int, int):
     return (1, 0)
 
+
 def east(direction: (int, int)) -> (int, int):
     return (0, 1)
 
+
 def west(direction: (int, int)) -> (int, int):
     return (0, -1)
+
 
 ADV_MAP = {
     'f': forward,
@@ -36,6 +44,7 @@ ADV_MAP = {
     'e': east,
     'w': west
 }
+
 
 def read_pallet(fname: str) -> dict:
     pallet = {}
