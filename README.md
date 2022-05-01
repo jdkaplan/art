@@ -190,7 +190,7 @@ An art file is formatted as a rectangle of ASCII text.  Execution of the program
 - Special
   - Destroy: This will destroy the brush altogether.
 
-**Reproduce**: Tiles can induce reproduction or forking among brushes, causing a new brush to appear.  The new brush will appear on the tile that induced the reproduction of the parent brush, while the parent brush will advance according to the advancement rule of the tile as described above.
+**Reproduce**: Tiles can induce reproduction or forking among brushes, causing a new brush to appear.  The new brush will appear on the tile that induced the reproduction of the parent brush, while the parent brush will advance according to the advancement rule of the tile as described above.  Note that, the child will inherit the heading the parent had when it moved onto the tile.
 
 **Transform**: Lastly, the tile itself may be changed as a result of the interaction.  Each tile has a transform character, which is the type of tile that appears at that spot once the next tick begins.  For particularly "stable" tiles, this may be the same type of tile, a null-transformation.  For others, they "decay" or "transform" into another type of tile immediately.  But life is not so black-and-white, and some tiles may be somewhere in between.  This is described by the _stability_ factor of a tile.
 
