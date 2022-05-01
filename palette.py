@@ -1,59 +1,62 @@
+from typing import Optional
+
 # advance functions
-def forward(direction: tuple[int, int]) -> tuple[int, int]:
+def forward(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return direction
 
 
-def backward(direction: tuple[int, int]) -> tuple[int, int]:
+def backward(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     dr, dc = direction
     return (-dr, -dc)
 
 
-def right(direction: tuple[int, int]) -> tuple[int, int]:
+def right(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     dr, dc = direction
     return (dc, -dr)
 
 
-def left(direction: tuple[int, int]) -> tuple[int, int]:
+def left(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     dr, dc = direction
     return (-dc, dr)
 
 
-def north(direction: tuple[int, int]) -> tuple[int, int]:
+def north(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return (-1, 0)
 
 
-def south(direction: tuple[int, int]) -> tuple[int, int]:
+def south(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return (1, 0)
 
 
-def east(direction: tuple[int, int]) -> tuple[int, int]:
+def east(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return (0, 1)
 
 
-def west(direction: tuple[int, int]) -> tuple[int, int]:
+def west(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return (0, -1)
 
-def northeast(direction: tuple[int, int]) -> tuple[int, int]:
+
+def northeast(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return (-1, 1)
 
 
-def northwest(direction: tuple[int, int]) -> tuple[int, int]:
+def northwest(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return (-1, -1)
 
 
-def southeast(direction: tuple[int, int]) -> tuple[int, int]:
+def southeast(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return (1, 1)
 
 
-def southwest(direction: tuple[int, int]) -> tuple[int, int]:
+def southwest(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return (1, -1)
 
 
-def stay(direction: tuple[int, int]) -> tuple[int, int]:
+def stay(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return (0, 0)
 
 
-def die(direction: tuple[int, int]) -> tuple[int, int]:
+def die(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return None
 
 
