@@ -1,0 +1,64 @@
+< W 0 < #
+
+0 W 0 1 #
+1 W 0 2 #
+2 W 0 3 #
+3 W 0 4 #
+4 W 0 5 #
+5 W 0 6 #
+6 W 0 7 #
+7 W 0 8 #
+8 W 0 9 #
+9 W 0 a #
+a W 0 b #
+b W 0 c #
+c W 0 d #
+d W 0 e #
+e W 0 f #
+f S 0 0 #
+o E 0 1 #
+
+! S 1 q S
+q - 0 ) #
+
+@ S 1 w S
+w - 0 ! #
+
+# S 1 ? S
+? - 0 @ #
+
+$ S 1 r S
+r - 0 # #
+
+% S 1 t S
+t - 0 $ #
+
+^ S 1 y S
+y - 0 % #
+
+& S 1 u S
+u - 0 ^ #
+
+* S 1 i S
+i - 0 & #
+
+( S 1 / S
+/ - 0 * #
+
+A S 1 z S
+z - 0 ( #
+
+B S 1 x S
+x - 0 A #
+
+C S 1 v S
+v - 0 B #
+
+D S 1 n S
+n - 0 C #
+
+E S 1 m S
+m - 0 D #
+
+F S 1 , S
+, - 0 E #
