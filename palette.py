@@ -1,5 +1,8 @@
 from typing import Optional
 
+def clamp(val, lo=-1, hi=1):
+    return min(max(val, lo), hi)
+
 # advance functions
 def forward(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return direction
@@ -18,6 +21,30 @@ def right(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
 def left(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     dr, dc = direction
     return (-dc, dr)
+
+
+def forward_left(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
+    fr, fc = forward(direction)
+    lr, lc = left(direction)
+    return (clamp(fr + lr), clamp(fc + lc))
+
+
+def forward_right(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
+    fr, fc = forward(direction)
+    rr, rc = right(direction)
+    return (clamp(fr + rr), clamp(fc + rc))
+
+
+def backward_left(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
+    fr, fc = backward(direction)
+    lr, lc = left(direction)
+    return (clamp(br + lr), clamp(bc + lc))
+
+
+def backward_right(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
+    br, bc = backward(direction)
+    rr, rc = right(direction)
+    return (clamp(br + rr), clamp(bc + rc))
 
 
 def north(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
@@ -65,6 +92,10 @@ ADV_MAP = {
     "b": backward,
     "r": right,
     "l": left,
+    "fr": forward_right,
+    "fl": forward_left,
+    "br": backward_right,
+    "bl": backward_left,
     "n": north,
     "s": south,
     "e": east,
