@@ -203,7 +203,7 @@ def parse_palette_line(spec_line: str):
     def validate_space():
         if spec_line[new_idx] != " ":
             raise PaletteError(
-                f"Invalid character at position {i} in palette line '{spec_line}'"
+                f"Invalid character at position {new_idx} in palette line '{spec_line}'"
             )
     try:
         char, new_idx = parse_character(spec_line, 0)
