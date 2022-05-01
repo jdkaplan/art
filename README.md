@@ -61,6 +61,70 @@ The _Stability_ of a type of tile is a number designating how many times it must
 
 ### Palette
 
+Which tiles do what?  How can the art come to life? How do I spawn cursors?  The answers to all of these questions lie in the _palette_.  The palette is a specification of every defined tile-type and its **ARTS** behaviors.  More specifically, it is a file where each line gives the specification for a single tile-type in the following format:
+
+```
+<representation> <advancement> <reproduction> <transformation> <spawn>
+```
+
+Let's walk through each of these elements:
+
+**Representation**
+
+This is a single ASCII character which will represent this tile type in the art.  For example, `a`, `;`, ` `, and `*` are all valid representations (TODO link ASCII?).
+
+**Advancement**
+
+This is a 1-2 character entry that will desribe the advancement rule tiles of this type will apply to brushes that touch it.  They correspond to the advancement rules above (case insensitive):
+
+- Forward: `f`
+- Backward: `b`
+- Right: `r`
+- Left: `l`
+- Forward-Right: `fr`
+- Forward-Left: `fl`
+- Backward-Right: `br`
+- Backward-Left: `bl`
+- North: `n`
+- South: `s`
+- East: `e`
+- West: `w`
+- Northeast: `ne`
+- Northwest: `nw`
+- Southeast: `se`
+- Southwest: `sw`
+- Stop: `-`
+- North-Polarize: `np`
+- South-Polarize: `sp`
+- East-Polarize: `ep`
+- West-Polarize: `wp`
+- Vertical-Polarize: `v`
+- Horizontal-Polarize: `h`
+- Destroy: `x`
+
+**Reproduction**
+
+This is a boolean, represented as a `1` or a `0`, stating whether or not this tile induces brushes to reproduce.  `1` means yes, and `0` means no here.
+
+**Transformation**
+
+This will include a single ASCII character which represents what the tile will transform into when it transitions or decays after contact with a brush.  However, this character can be prefixed with a whole decimal number which will indicate its _stability_, as described above.  For example, `6B` indicates a tile will, after 6 encounters with brushes, turn into a `B` tile.
+
+**Spawn**
+
+This entry determines spawn heading for any brushes the tile may spawn on tick 0, or alternatively indicates that it does not spawn any brushes at all.  Typically, most tiles will not spawn brushes, but this is ultimately up to the particular artvark's whims.  Here are all of the possible values:
+
+- No Spawn: `#`
+- North: `n`
+- South: `s`
+- East: `e`
+- West: `w`
+- Northeast: `ne`
+- Northwest: `nw`
+- Southeast: `se`
+- Southwest: `sw`
+- Stop: `-`
+
 TODO
 
 
