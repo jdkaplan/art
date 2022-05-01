@@ -108,7 +108,7 @@ This is a boolean, represented as a `1` or a `0`, stating whether or not this ti
 
 **Transformation**
 
-This will include a single ASCII character which represents what the tile will transform into when it transitions or decays after contact with a brush.  However, this character can be prefixed with a whole decimal number which will indicate its _stability_, as described above.  For example, `6B` indicates a tile will, after 6 encounters with brushes, turn into a `B` tile.
+This will include a single ASCII character which represents what the tile will transform into when it transitions or decays after contact with a brush.  However, this character can be prefixed with a whole decimal number which will indicate its _stability_, as described above.  For example, `6B` indicates a tile will, after 6 encounters with brushes, turn into a `B` tile.  If no stability prefix is given, the stability is assumed to be `1`.
 
 **Spawn**
 
