@@ -34,8 +34,8 @@ An art file is formatted as a rectangle of ASCII text.  Execution of the program
 - Absolute.  All of these directions are with respect to the art as a whole, without regard for the previous direction of the brush:
   - North: This causes the brush to advance upwards.
   - South: This causes the brush to advance downwards.
-  - East: This causes the brusth to advance rightwards.
-  - West: This causes the brusth to advance leftwards.
+  - East: This causes the brush to advance rightwards.
+  - West: This causes the brush to advance leftwards.
   - Northeast: This causes the brush to advance up and to the right.
   - Northwest: This causes the brush to advance up and to the left.
   - Southeast: This causes the brush to advance down and to the right.
