@@ -151,7 +151,7 @@ o X 0 1 #
 
 ## Program Components (or How to Make ART)
 
-An ART program consists of two components, the _art_ and the _palette_.  While ART provides a default palette, it is very basic and intended mostly as a starting point for aspiring ART programmers (or _artvarks_ as we like to call them).  While art is what people look at, really the palette is what makes the artist (as well as the palate, of course, but unfortunately we cannot provide that within the language).
+An ART program consists of two components, the _art_ and the _pallete_.  While ART provides a default pallete, it is very basic and intended mostly as a starting point for aspiring ART programmers (or _artvarks_ as we like to call them).  While art is what people look at, really the pallete is what makes the artist (as well as the palate, of course, but unfortunately we cannot provide that within the language).
 
 ### Art
 
@@ -159,7 +159,7 @@ The art component, which will be written into a `.art` file, is where the ART pr
 
 An art file is formatted as a rectangle of ASCII text.  Execution of the program is done in _ticks_ where _brushes_ (or _cursors_ if you prefer) move about on the art.  For each tile (character) touched by a brush, it is activated, and does three things:
 
-**Advance**: The interaction of a brush and a tile leaves the brush forever changed.  The advance portion of this effect alters the direction and in which the brush will move for the next tick or may even cause the brush to be destroyed.  All brushes can only move 0 or 1 tiles/tick in each given direction. There are 24 different types of advancement:
+**Advance**: The interaction of a brush and a tile leaves the brush forever changed.  The advance portion of this effect alters the direction and in which the brush will move for the next tick or may even cause the brush to be destroyed.  All brushes can only move 0 or 1 tiles/tick in each given direction, and will wrap around to the other side of the artwork if they reach the edge. There are 24 different types of advancement:
 
 - Relative:
   - Forward: This causes the brush to advance in the same direction it was already headed in.
@@ -198,9 +198,11 @@ The _Stability_ of a type of tile is a number designating how many times it must
 
 **Spawn**: While not part of the normal tick-to-tick operations of ART, at the beginning (tick 0), some special tiles may spawn brushes to get things going.  These may spawn the brushes with a heading of any of the absolute headings described in _advance_, including stopped.
 
-### Palette
+### Pallete
 
-Which tiles do what?  How can the art come to life? How do I spawn cursors?  The answers to all of these questions lie in the _palette_.  The palette is a specification of every defined tile-type and its **ARTS** behaviors.  More specifically, it is a file where each line gives the specification for a single tile-type in the following format:
+Which tiles do what?  How can the art come to life? How do I spawn cursors?  The answers to all of these questions lie in the _pallete_.  The pallete is a specification of every defined tile-type and its **ARTS** behaviors.  A pallete can specify behaviors for as few or as many (up to the limit of ASCII) tile-types as the artvark desires.  Any character not associated with a tile-type implicitly becomes a "destroy" tile, and will cause any cursors that contact them to be destroyed.  This can be useful for forming boundaries if wrapping is undesired behavior.
+
+More specifically, it is a file where each line gives the specification for a single tile-type in the following format:
 
 ```
 <representation> <advancement> <reproduction> <transformation> <spawn>
@@ -264,11 +266,11 @@ This entry determines spawn heading for any brushes the tile may spawn on tick 0
 - Southwest: `sw`
 - Stop: `-`
 
-**The Default Palette**
+**The Default Pallete**
 
-Artvarks often find themselves working with common base palette unique to them (called their _signature_) and mix in other definitions to fit their current art piece.
+Artvarks often find themselves working with common base pallete unique to them (called their _signature_) and mix in other definitions to fit their current art piece.
 
-This is the default palette included in the ART interpreter to help you get started:
+This is the default pallete included in the ART interpreter to help you get started:
 
 ```
 ^ n 0 ^ n
@@ -299,6 +301,14 @@ E E 1 E #
 W W 1 W #
 ```
 
+## Bugs without Errors (Or How to Debug ART)
+
+ART's design results in the wonderful feature that any `.art` will run without complaint.  Of course, sophisticated use cases that users will surely engage in may require some trial and error to manifest the artvark's vision.
+
+So how do you debug?  ART's design makes this incredibly simple and avoids the need for any external debugging tools.  Nearly the entire program state and memory is captured in the visual representation of the art at any moment.  Consequently, you yourself are the only debugging tool you'll ever need!
+
+Moving on.
+
 ## Running an ART program
 
 To run an ART program, the invocation is simple.  From the `art` directory, run:
@@ -307,7 +317,7 @@ To run an ART program, the invocation is simple.  From the `art` directory, run:
 python main.py <art-file>
 ```
 
-By default, ART will look for a pallete file with the same name as the art file in the same location, except with the `.pallete` extension instead of `.art`.  However, if you want to specify a different palette, you can do so with the `-p` flag.
+By default, ART will look for a pallete file with the same name as the art file in the same location, except with the `.pallete` extension instead of `.art`.  However, if you want to specify a different pallete, you can do so with the `-p` flag.
 
 ```
 python main.py -p <pallete-file> <art-file>
@@ -316,11 +326,3 @@ python main.py -p <pallete-file> <art-file>
 We encourage you all to experiment with mixing and matching pallete files and art.  There is much excitement to be had in creating an art file that proceeds very differently with different palletes.
 
 If you're ever in doubt about the various flags that you can invoke ART with, the `-h` option will show them.
-
-## Bugs without Errors (Or How to Debug ART)
-
-ART's design results in the wonderful feature that any `.art` will run without complaint.  Of course, sophisticated use cases that users will surely engage in may require some trial and error to manifest the artvark's vision.
-
-So how do you debug?  ART's design makes this incredibly simple and avoids the need for any external debugging tools.  Nearly the entire program state and memory is captured in the visual representation of the art at any moment.  Consequently, you yourself are the only debugging tool you'll ever need!
-
-Moving on.
