@@ -144,6 +144,7 @@ ADV_MAP = {
     "x": die
 }
 
+
 _default_palette = """\
 ^ n 0 ^ n
 v s 0 v s
@@ -189,10 +190,7 @@ class Palette:
         return key in self.chars
 
     def get(self, key, default=None):
-        if key in self:
-            return self[key]
-        else:
-            return default
+        return self.chars.get(key, default)
 
 
 class PaletteError(Exception):

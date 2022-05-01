@@ -20,7 +20,7 @@ The art component, which will be written into a `.art` file, is where the ART pr
 
 An art file is formatted as a rectangle of ASCII text.  Execution of the program is done in _ticks_ where _brushes_ (or _cursors_ if you prefer) move about on the art.  For each tile (character) touched by a brush, it is activated, and does three things:
 
-*Advance*: The interaction of a brush and a tile leaves the brush forever changed.  The advance portion of this effect alters the direction and in which the brush will move for the next tick or may even cause the brush to be destroyed.  All brushes can only move 0 or 1 tiles/tick in each given direction. There are 24 different types of advancement:
+**Advance**: The interaction of a brush and a tile leaves the brush forever changed.  The advance portion of this effect alters the direction and in which the brush will move for the next tick or may even cause the brush to be destroyed.  All brushes can only move 0 or 1 tiles/tick in each given direction. There are 24 different types of advancement:
 
 - Relative:
   - Forward: This causes the brush to advance in the same direction it was already headed in.
@@ -51,13 +51,13 @@ An art file is formatted as a rectangle of ASCII text.  Execution of the program
 - Special
   - Destroy: This will destroy the brush altogether.
 
-*Reproduce*: Tiles can induce reproduction or forking among brushes, causing a new brush to appear.  The new brush will appear on the tile that induced the reproduction of the parent brush, while the parent brush will advance according to the advancement rule of the tile as described above.
+**Reproduce**: Tiles can induce reproduction or forking among brushes, causing a new brush to appear.  The new brush will appear on the tile that induced the reproduction of the parent brush, while the parent brush will advance according to the advancement rule of the tile as described above.
 
-*Transform*: Lastly, the tile itself may be changed as a result of the interaction.  Each tile has a transform character, which is the type of tile that appears at that spot once the next tick begins.  For particularly "stable" tiles, this may be the same type of tile, a null-transformation.  For others, they "decay" or "transform" into another type of tile immediately.  But life is not so black-and-white, and some tiles may be somewhere in between.  This is described by the _stability_ factor of a tile.
+**Transform**: Lastly, the tile itself may be changed as a result of the interaction.  Each tile has a transform character, which is the type of tile that appears at that spot once the next tick begins.  For particularly "stable" tiles, this may be the same type of tile, a null-transformation.  For others, they "decay" or "transform" into another type of tile immediately.  But life is not so black-and-white, and some tiles may be somewhere in between.  This is described by the _stability_ factor of a tile.
 
 The _Stability_ of a type of tile is a number designating how many times it must be interacted with by any brush before it decays to its next form.  For those which change immediately, they have a stability of precisely 1.  If for example, a tile had a stability of 5, it would have to be touched by a brush 5 times before transitioning.
 
-*Spawn*: While not part of the normal tick-to-tick operations of ART, at the beginning (tick 0), some special tiles may spawn brushes to get things going.  These may spawn the brushes with a heading of any of the absolute headings described in _advance_, including stopped.
+**Spawn**: While not part of the normal tick-to-tick operations of ART, at the beginning (tick 0), some special tiles may spawn brushes to get things going.  These may spawn the brushes with a heading of any of the absolute headings described in _advance_, including stopped.
 
 ### Palette
 
