@@ -161,7 +161,7 @@ An art file is formatted as a rectangle of ASCII text.  Execution of the program
 
 #### Initial State
 
-Each tile (character) in the art file has an initial state described by an initial _stability_ counter, and whether it spawns a brush or not. When the program starts running, some special tiles
+Each tile (character) in the art file has an initial state described by an initial _stability_ counter, and whether it spawns a brush or not.
 
 The _stability_ of a type of tile is a number designating how many times it must be interacted with by any brush before it decays to its next form.  For those which change immediately, they have a stability of precisely 1.  If for example, a tile had a stability of 5, it would have to be touched by a brush 5 times before transforming.
 
