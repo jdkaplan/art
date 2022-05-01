@@ -2,7 +2,7 @@
 
 _Note: This language is a prototype built for the QLDQ mini-hackathon.  It has some rough edges, and there are no promises or expectations that these will ever be polished away.  Feel free to fork if you want to modify or improve (within MIT license allowances), and have fun!  We'd be glad to hear about anything cool you come up with :)_
 
-ART (or better known by its full name: *ARTS Plus Polarization*) is another hit language from Team Logicful, produced for QLDQ.  The language is designed to make full use of ASCII, two dimensional space, extensive customizability, and a coherent mixture of atomic and art-based metaphor to once again evolve the way people think about programming.
+ART (or better known by its full name: *ARTS Plus Polarization*) is another hit language from Team Logicful, produced for QLDQ.  The language is designed to make full use of ASCII, two dimensional space, extensive customizability, and a coherent mixture of particle physics and art-based metaphor to once again evolve the way people think about programming.
 
 Really the name speaks for itself, and the language is very straightforward.  Just in case it's needed though, all of ART's behaviors and usage are documented below.
 
