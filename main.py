@@ -10,6 +10,10 @@ from palette import Palette
 from simulator import Simulator
 
 
+def clear_screen():
+    print("\033c", end="")
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description="ART: Advance Reproduce Transform",
@@ -99,7 +103,7 @@ def main(args):
         if args.no_clear:
             print()
         else:
-            os.system("clear")
+            clear_screen()
 
         print(canvas, end="")
         if not args.no_iteration:
@@ -116,7 +120,7 @@ def main(args):
             if args.no_clear:
                 print()
             else:
-                os.system("clear")
+                clear_screen()
 
             print(canvas, end="")
             if not args.no_iteration:
