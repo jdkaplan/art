@@ -18,7 +18,6 @@ class TestEvaluator(unittest.TestCase):
     excluded_programs = {
         # Infinite programs
         "default",
-        "turtle",
     }
 
     def sample_programs(self):
