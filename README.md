@@ -8,7 +8,7 @@ Really the name speaks for itself, and the language is very straightforward.  Ju
 
 ## Rites of Passage
 
-<details><summary>Hello</summary>
+<details><summary>Hello World</summary>
 
 `hello.art`:
 
