@@ -71,7 +71,7 @@ Let's walk through each of these elements:
 
 **Representation**
 
-This is a single ASCII character which will represent this tile type in the art.  For example, `a`, `;`, ` `, and `*` are all valid representations (TODO link ASCII?).
+This is a single ASCII character which will represent this tile type in the art.  For example, `a`, `;`, ` `, and `*` are all valid representations (see [https://www.ascii-code.com/](https://www.ascii-code.com/) for a table of ASCII).
 
 **Advancement**
 
@@ -125,11 +125,6 @@ This entry determines spawn heading for any brushes the tile may spawn on tick 0
 - Southwest: `sw`
 - Stop: `-`
 
-TODO
-
-
-TODO
-
 **The Default Palette**
 
 Artvarks often find themselves working with common base palette unique to them (called their _signature_) and mix in other definitions to fit their current art piece.
@@ -164,3 +159,29 @@ S S 1 S #
 E E 1 E #
 W W 1 W #
 ```
+
+## Running an ART program
+
+To run an ART program, the invocation is simple.  From the `art` directory, run:
+
+```
+python main.py <art-file>
+```
+
+By default, ART will look for a pallete file with the same name as the art file in the same location, except with the `.pallete` extension instead of `.art`.  However, if you want to specify a different palette, you can do so with the `-p` flag.
+
+```
+python main.py -p <pallete-file> <art-file>
+```
+
+We encourage you all to experiment with mixing and matching pallete files and art.  There is much excitement to be had in creating an art file that proceeds very differently with different palletes.
+
+If you're ever in doubt about the various flags that you can invoke ART with, the `-h` option will show them.
+
+## Bugs without Errors (Or How to Debug ART)
+
+ART's design results in the wonderful feature that any `.art` will run without complaint.  Of course, sophisticated use cases that users will surely engage in may require some trial and error to manifest the artvark's vision.
+
+So how do you debug?  ART's design makes this incredibly simple and avoids the need for any external debugging tools.  Nearly the entire program state and memory is captured in the visual representation of the art at any moment.  Consequently, you yourself are the only debugging tool you'll ever need!
+
+Moving on.
