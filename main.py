@@ -96,6 +96,12 @@ def main(args):
         print(canvas, end="")
 
         if not canvas.simulate():
+            if args.no_clear:
+                print()
+            else:
+                os.system("clear")
+
+            print(canvas, end="")
             break
 
         if args.wait:

@@ -78,10 +78,12 @@ class Simulator:
                     locs.add((cursor.r, cursor.c))
                     self.cursors.add(cursor)
                     cursor = Cursor(cursor.r, cursor.c, cursor.direction)
+
                 cursor.transform(transform_fn)
                 locs.add((cursor.r, cursor.c))
-                cursor.move(self.row_count, self.col_count)
-                self.cursors.add(cursor)
+                if cursor.direction is not None:
+                    cursor.move(self.row_count, self.col_count)
+                    self.cursors.add(cursor)
 
         for r, c in locs:
             counter, current = self.grid[r][c]
