@@ -54,8 +54,15 @@ def parse_args():
         "-c",
         "--cursor",
         default="bold",
-        choices=["bold", "inverse"],
+        choices=["bold", "inverse", "none"],
         help="Set the cursor style",
+    )
+    parser.add_argument(
+        "-ni",
+        "--no-iteration",
+        default=False,
+        action='store_true',
+        help="Does not show the current iteration number",
     )
     parser.add_argument("art", type=str, help="The art to execute")
 
@@ -87,6 +94,7 @@ def main(args):
     with open(args.art) as art:
         canvas = Simulator(art.read(), palette, cursor_style=args.cursor)
 
+    iteration = 0
     while True:
         if args.no_clear:
             print()
@@ -94,7 +102,10 @@ def main(args):
             os.system("clear")
 
         print(canvas, end="")
+        if not args.no_iteration:
+            print("Iteration: %d" % (iteration,))
 
+        iteration += 1
         if not canvas.simulate():
             if args.no_clear:
                 print()
@@ -102,6 +113,8 @@ def main(args):
                 os.system("clear")
 
             print(canvas, end="")
+            if not args.no_iteration:
+                print("Iteration: %d" % (iteration,))
             break
 
         if args.wait:
