@@ -8,6 +8,8 @@ for line in stdin:
     if (i - 2 - extra_offset) % (8 * 30) != 0:
         i += 1
         continue
-    print(line.strip().replace("O", "0").replace("I", "|"))
+
+    io = line.strip().replace("O", "0").replace("I", "|")
+    print(io.replace("0", " ").replace("|", "█"))
 
     i += 1
