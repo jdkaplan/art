@@ -142,7 +142,7 @@ def parse_advance(spec_line: str, idx: int):
     if spec_line[idx + 1] != " ":
         # digraph direction
         direction = spec_line[idx:idx+2].lower()
-        idx = idx + 2
+        new_idx = idx + 2
 
     if direction not in ADV_MAP:
         raise PaletteError(f"Invalid Advance specification in palette line '{spec_line}'")
