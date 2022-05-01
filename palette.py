@@ -33,9 +33,28 @@ def east(direction: tuple[int, int]) -> tuple[int, int]:
 def west(direction: tuple[int, int]) -> tuple[int, int]:
     return (0, -1)
 
+def northeast(direction: tuple[int, int]) -> tuple[int, int]:
+    return (-1, 1)
+
+
+def northwest(direction: tuple[int, int]) -> tuple[int, int]:
+    return (-1, -1)
+
+
+def southeast(direction: tuple[int, int]) -> tuple[int, int]:
+    return (1, 1)
+
+
+def southwest(direction: tuple[int, int]) -> tuple[int, int]:
+    return (1, -1)
+
 
 def stay(direction: tuple[int, int]) -> tuple[int, int]:
     return (0, 0)
+
+
+def die(direction: tuple[int, int]) -> tuple[int, int]:
+    return None
 
 
 ADV_MAP = {
@@ -47,7 +66,12 @@ ADV_MAP = {
     "s": south,
     "e": east,
     "w": west,
+    "ne": northeast,
+    "nw": northwest,
+    "se": southeast,
+    "sw": southwest,
     "-": stay,
+    "x": die
 }
 
 _default_palette = """\
@@ -105,34 +129,46 @@ class PaletteError(Exception):
     pass
 
 
-def parse_palette_line(spec_line: str):
-    for i in [1, 3, 5]:
-        if spec_line[i] != " ":
-            raise PaletteError(
-                f"Invalid character at position {i} in palette line '{spec_line}'"
-            )
+def parse_character(spec_line: str, idx: int):
+    return spec_line[idx], idx+1
 
-    try:
-        char = spec_line[0]
-        adv = spec_line[2]
-        repro = spec_line[4]
-        trans = spec_line[6:-2]
-        spawn = spec_line[-1]
-    except Exception:
-        raise PaletteError(f"Error extracting fields from pallete line '{spec_line}'")
 
-    if adv.lower() not in ADV_MAP:
-        raise PaletteError(f"Invalid Advance character in palette line '{spec_line}'")
-    adv = ADV_MAP[adv.lower()]
+def parse_advance(spec_line: str, idx: int):
+    direction = spec_line[idx].lower()
+    new_idx = idx + 1
+    if spec_line[idx + 1] != " ":
+        # digraph direction
+        direction = spec_line[idx:idx+2].lower()
+        idx = idx + 2
 
+    if direction not in ADV_MAP:
+        raise PaletteError(f"Invalid Advance specification in palette line '{spec_line}'")
+
+    return ADV_MAP[direction], new_idx
+
+
+def parse_reproduce(spec_line: str, idx: int):
+    repro = spec_line[idx]
     if repro not in "01":
         raise PaletteError(f"Invalid Reproduce character in palette line '{spec_line}'")
-    repro = bool(int(repro))
+    return bool(int(repro)), idx + 1
 
+
+def parse_transform(spec_line: str, idx: int):
     stability = 1
-    if len(trans) > 1:
+    # this is tricky, we can have something like "50 ", with a space
+    # character.  So we really need to look for the *next* token to handle
+    # any weirdness
+    space_idx = spec_line[idx + 1:].index(" ") + idx + 1
+    if spec_line[space_idx + 1] == " ":
+        # this means that the transform character is a space
+        # or some other malformation
+        space_idx += 1
+
+    transform = spec_line[idx:space_idx]
+    if len(transform) > 1:
         try:
-            stability = int(trans[:-1])
+            stability = int(transform[:-1])
             if stability < 1:
                 raise PaletteError(
                     f"Nonpositive Stability factor in palette line '{spec_line}'"
@@ -141,11 +177,47 @@ def parse_palette_line(spec_line: str):
             raise PaletteError(
                 f"Invalid Stability factor in palette line '{spec_line}'"
             )
-    trans = trans[-1]
+    transform = transform[-1]
 
-    if spawn.lower() not in "nsew-#":
+    return (stability, transform), space_idx
+
+
+def parse_spawn(spec_line: str, idx: int):
+    spawn = spec_line[idx]
+    spawn = spec_line[idx].lower()
+    new_idx = idx + 1
+    if idx + 1 < len(spec_line):
+        # digraph direction
+        spawn = spec_line[idx:idx+2].lower()
+        new_idx = idx + 2
+    if spawn not in {"n", "s", "e", "w", "ne", "nw", "se", "sw", "-", "#"}:
         raise PaletteError(f"Invalid Spawn character in palette line '{spec_line}'")
-    spawn = None if spawn == "#" else ADV_MAP[spawn.lower()]((0, 0))
+    spawn = None if spawn == "#" else ADV_MAP[spawn]((0, 0))
+    return spawn, new_idx
+
+
+def parse_palette_line(spec_line: str):
+    def validate_space():
+        if spec_line[new_idx] != " ":
+            raise PaletteError(
+                f"Invalid character at position {i} in palette line '{spec_line}'"
+            )
+    try:
+        char, new_idx = parse_character(spec_line, 0)
+        validate_space()
+        adv, new_idx = parse_advance(spec_line, new_idx + 1)
+        validate_space()
+        repro, new_idx = parse_reproduce(spec_line, new_idx + 1)
+        validate_space()
+        (stability, trans), new_idx = parse_transform(spec_line, new_idx + 1)
+        validate_space()
+        spawn, new_idx = parse_spawn(spec_line, new_idx + 1)
+        if new_idx != len(spec_line):
+            raise PaletteError(f"Unparsed characters in palette line '{spec_line}'")
+    except PaletteError:
+        raise
+    except Exception:
+        raise PaletteError(f"Unexpected error extracting fields from palette line '{spec_line}'")
 
     return (char, (adv, repro, trans, spawn, stability))
 
