@@ -151,7 +151,7 @@ o X 0 1 #
 
 ## Program Components (or How to Make ART)
 
-An ART program consists of two components, the _art_ and the _pallete_.  While ART provides a default pallete, it is very basic and intended mostly as a starting point for aspiring ART programmers (or _artvarks_ as we like to call them).  While art is what people look at, really the pallete is what makes the artist (as well as the palate, of course, but unfortunately we cannot provide that within the language).
+An ART program consists of two components, the _art_ and the _palette_.  While ART provides a default palette, it is very basic and intended mostly as a starting point for aspiring ART programmers (or _artvarks_ as we like to call them).  While art is what people look at, really the palette is what makes the artist (as well as the palate, of course, but unfortunately we cannot provide that within the language).
 
 ### Art
 
@@ -198,9 +198,9 @@ The _Stability_ of a type of tile is a number designating how many times it must
 
 **Spawn**: While not part of the normal tick-to-tick operations of ART, at the beginning (tick 0), some special tiles may spawn brushes to get things going.  These may spawn the brushes with a heading of any of the absolute headings described in _advance_, including stopped.
 
-### Pallete
+### Palette
 
-Which tiles do what?  How can the art come to life? How do I spawn cursors?  The answers to all of these questions lie in the _pallete_.  The pallete is a specification of every defined tile-type and its **ARTS** behaviors.  A pallete can specify behaviors for as few or as many (up to the limit of ASCII) tile-types as the artvark desires.  Any character not associated with a tile-type implicitly becomes a "destroy" tile, and will cause any cursors that contact them to be destroyed.  This can be useful for forming boundaries if wrapping is undesired behavior.
+Which tiles do what?  How can the art come to life? How do I spawn cursors?  The answers to all of these questions lie in the _palette_.  The palette is a specification of every defined tile-type and its **ARTS** behaviors.  A palette can specify behaviors for as few or as many (up to the limit of ASCII) tile-types as the artvark desires.  Any character not associated with a tile-type implicitly becomes a "destroy" tile, and will cause any cursors that contact them to be destroyed.  This can be useful for forming boundaries if wrapping is undesired behavior.
 
 More specifically, it is a file where each line gives the specification for a single tile-type in the following format:
 
@@ -266,11 +266,11 @@ This entry determines spawn heading for any brushes the tile may spawn on tick 0
 - Southwest: `sw`
 - Stop: `-`
 
-**The Default Pallete**
+**The Default Palette**
 
-Artvarks often find themselves working with common base pallete unique to them (called their _signature_) and mix in other definitions to fit their current art piece.
+Artvarks often find themselves working with common base palette unique to them (called their _signature_) and mix in other definitions to fit their current art piece.
 
-This is the default pallete included in the ART interpreter to help you get started:
+This is the default palette included in the ART interpreter to help you get started:
 
 ```
 ^ n 0 ^ n
@@ -317,12 +317,12 @@ To run an ART program, the invocation is simple.  From the `art` directory, run:
 python main.py <art-file>
 ```
 
-By default, ART will look for a pallete file with the same name as the art file in the same location, except with the `.pallete` extension instead of `.art`.  However, if you want to specify a different pallete, you can do so with the `-p` flag.
+By default, ART will look for a palette file with the same name as the art file in the same location, except with the `.palette` extension instead of `.art`.  However, if you want to specify a different palette, you can do so with the `-p` flag.
 
 ```
-python main.py -p <pallete-file> <art-file>
+python main.py -p <palette-file> <art-file>
 ```
 
-We encourage you all to experiment with mixing and matching pallete files and art.  There is much excitement to be had in creating an art file that proceeds very differently with different palletes.
+We encourage you all to experiment with mixing and matching palette files and art.  There is much excitement to be had in creating an art file that proceeds very differently with different palettes.
 
 If you're ever in doubt about the various flags that you can invoke ART with, the `-h` option will show them.
