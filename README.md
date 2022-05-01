@@ -8,7 +8,146 @@ Really the name speaks for itself, and the language is very straightforward.  Ju
 
 ## Rites of Passage
 
-TODO
+<details><summary>Hello</summary>
+
+`hello.art`:
+
+```
+#>vvvvvvvvvvvvvvvvvvvvvvvv#############################
+#@!@?@!@]']$@??!@?@!@]@@!@#C?~?:~:?siBi?R&si?;?iiBii;i#
+#@?@*]=@=]@$[@$@/@?@[@=@?!#C?.W.".p?/.[?u%,?p.s;p.t$??#
+#?!@/@[@*%'@=]%@[]'@*'[!?@#C?.}&y%u?[Ou?p.t?z&L?D%q~~$#
+#!@$!?!@@!!@??@!@?@!@!@@!?#C??~$$?~?$~?;$;??$?~iC~?$?i#
+#^^^^^^^^^^^^^^^^^^^^^^^^^#############################
+```
+
+`hello.palette`:
+
+```
+> s 1 - e
+v s 1 - #
+- e 0 # #
+^ n 0 # #
+
+* f 0 [ #
+= f 0 / #
+[ f 0 | #
+/ f 0 | #
+| f 0 | #
+
+] f 0 % #
+' f 0 & #
+& f 0 _ #
+% f 0 _ #
+_ f 0 _ #
+
+! f 0 ? #
+? f 0   #
+@ f 0 $ #
+$ f 0   #
+~ f 0   #
+
+W - 0 90w -
+w s 0 | #
+} e 0 | #
+y l 0 2| #
+" b 0 | #
+u l 0 | #
+p f 0 | #
+
+O - 0 90o -
+o e 0 _ #
+i l 0   #
+t f 0 \ #
+B l 1 % #
+
+R - 0 90r -
+r e 0   #
+s r 0   #
+, s 1 z #
+z r 0 | #
+
+L - 0 90l -
+l w 0 _ #
+
+D - 0 90d -
+d e 0 | #
+q l 0 / #
+
+C - 0 60c -
+c e 0   #
+; l 1 ? #
+: r 1 ? #
+. b 0   #
+
+  f 0   #
+```
+
+</details>
+
+<details><summary>Rule 110</summary>
+
+`rule.art`:
+
+```
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000|0000
+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+........................................................................................................................
+```
+
+`rule.palette`:
+
+```
+v S 1 = S
+= - 0 8- #
+- S 1 _ #
+_ - 0 50v #
+
+. - 0 30^ -
+^ N 1 , #
+, - 0 8' #
+' N 1 " #
+" - 0 50^ #
+
+x - 0 10p -
+p N 1 a #
+a F 0 19n #
+n NP 0 30x -
+
+O X 0 I #
+I N 1 2U #
+U NE 1 4Y #
+Y NW 1 T #
+T - 0 10[ #
+[ X 0 O #
+
+0 X 0 | #
+| S 1 2\ #
+\ SE 1 4/ #
+/ SW 1 ! #
+! - 0 10] #
+] X 0 0 #
+
+s SP 0 30X -
+X - 0 10P -
+P S 1 A #
+A F 0 19s #
+
+o X 0 1 #
+1 B 0 2 #
+2 B 0 3 #
+3 B 0 4 #
+4 X 0 5 #
+5 B 0 6 #
+6 B 0 7 #
+7 X 0 o #
+```
+
+</details>
 
 ## Program Components (or How to Make ART)
 
