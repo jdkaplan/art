@@ -1,14 +1,14 @@
 import enum
 
 
-class Cursor:
+class Brush:
     def __init__(self, r, c, direction):
         self.r = r
         self.c = c
         self.direction = direction
 
-    def transform(self, transform_fn):
-        self.direction = transform_fn(self.direction)
+    def advance(self, advance_fn):
+        self.direction = advance_fn(self.direction)
 
     def move(self, row_count, col_count):
         self.r += self.direction[0]
@@ -31,18 +31,18 @@ class Cursor:
         return (self.r, self.c, self.direction) == (other.r, other.c, other.direction)
 
     def __repr__(self):
-        return f"Cursor({self.r}, {self.c}, {self.direction})"
+        return f"Brush({self.r}, {self.c}, {self.direction})"
 
 
 class Simulator:
-    def __init__(self, grid, language, *, cursor_style="bold"):
-        counter_index = 4
-        cursor_index = 3
+    def __init__(self, grid, language, *, brush_style="bold"):
+        stability_index = 4
+        brush_index = 3
 
-        self.cursors = set()
+        self.brushes = set()
         fake_lang = (None, None, None, None, 1)
         self.grid = [
-            [(language.get(col, fake_lang)[counter_index], col) for col in row]
+            [(language.get(col, fake_lang)[stability_index], col) for col in row]
             for row in grid.splitlines()
         ]
         self.row_count = len(self.grid)
@@ -54,70 +54,70 @@ class Simulator:
                 if char not in self.language:
                     continue
 
-                cursor = self.language[char][cursor_index]
-                if cursor is not None:
-                    self.add_cursor(Cursor(r, c, cursor))
+                brush = self.language[char][brush_index]
+                if brush is not None:
+                    self.add_brush(Brush(r, c, brush))
 
-        self.cursor_style = cursor_style
+        self.brush_style = brush_style
 
-    def add_cursor(self, cursor):
-        self.cursors.add(cursor)
+    def add_brush(self, brush):
+        self.brushes.add(brush)
 
     def simulate(self):
         """Returns whether this was the last step of the simulation."""
 
         locs = set()
-        cursors = list(self.cursors)
-        self.cursors.clear()
-        for cursor in cursors:
-            if self.grid[cursor.r][cursor.c][1] in self.language:
-                (transform_fn, reproduce, _, _, _) = self.language[
-                    self.grid[cursor.r][cursor.c][1]
+        brushes = list(self.brushes)
+        self.brushes.clear()
+        for brush in brushes:
+            if self.grid[brush.r][brush.c][1] in self.language:
+                (advance_fn, reproduce, _, _, _) = self.language[
+                    self.grid[brush.r][brush.c][1]
                 ]
                 if reproduce:
-                    locs.add((cursor.r, cursor.c))
-                    self.cursors.add(cursor)
-                    cursor = Cursor(cursor.r, cursor.c, cursor.direction)
+                    locs.add((brush.r, brush.c))
+                    self.brushes.add(brush)
+                    brush = Brush(brush.r, brush.c, brush.direction)
 
-                cursor.transform(transform_fn)
-                locs.add((cursor.r, cursor.c))
-                if cursor.direction is not None:
-                    cursor.move(self.row_count, self.col_count)
-                    self.cursors.add(cursor)
+                brush.advance(advance_fn)
+                locs.add((brush.r, brush.c))
+                if brush.direction is not None:
+                    brush.move(self.row_count, self.col_count)
+                    self.brushes.add(brush)
 
         for r, c in locs:
-            counter, current = self.grid[r][c]
-            if counter == 1:
+            stability, current = self.grid[r][c]
+            if stability == 1:
                 (_, _, next_char, _, _) = self.language[current]
-                counter_index = 4
+                stability_index = 4
                 if next_char in self.language:
-                    output = (self.language[next_char][counter_index], next_char)
+                    transform = (self.language[next_char][stability_index], next_char)
                 else:
-                    output = (1, next_char)
+                    transform = (1, next_char)
             else:
-                output = (counter - 1, current)
-            self.grid[r][c] = output
+                transform = (stability - 1, current)
+            self.grid[r][c] = transform
 
-        return len(self.cursors) != 0
+        return len(self.brushes) != 0
 
     def get_grid(self):
         return self.grid
 
     def __str__(self):
         string = ""
-        cursors = set((cursor.r, cursor.c) for cursor in self.cursors)
+        brushes = set((brush.r, brush.c) for brush in self.brushes)
         for row in range(self.row_count):
             for col in range(self.col_count):
-                is_cursor = (row, col) in cursors
-                if is_cursor:
-                    string += self._format_cursor(self.grid[row][col][1])
+                is_brush = (row, col) in brushes
+                if is_brush:
+                    string += self._format_brush(self.grid[row][col][1])
                 else:
                     string += self.grid[row][col][1]
             string += "\n"
         return string
 
-    def _format_cursor(self, char):
-        style = self.cursor_style
+    def _format_brush(self, char):
+        style = self.brush_style
         if style == "bold":
             return "\033[1m" + char + "\033[0m"
         if style == "inverse":

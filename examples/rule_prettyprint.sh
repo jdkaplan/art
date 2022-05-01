@@ -5,7 +5,7 @@ ROOT="$(dirname "${EXAMPLES}")"
 
 "${ROOT}/main.py" \
     "${EXAMPLES}/rule.art" \
-    --cursor none \
+    --brush none \
     --tick 0 \
     --no-clear \
     --no-iteration \
