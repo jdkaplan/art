@@ -57,6 +57,26 @@ def horizontal(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]
     return (0, dc)
 
 
+def north_polarize(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
+    dr, dc = direction
+    return (-1, 0) if dr < 0 else (0, 0)
+
+
+def south_polarize(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
+    dr, dc = direction
+    return (1, 0) if dr > 0 else (0, 0)
+
+
+def east_polarize(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
+    dr, dc = direction
+    return (0, 1) if dc > 0 else (0, 0)
+
+
+def west_polarize(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
+    dr, dc = direction
+    return (0, -1) if dc < 0 else (0, 0)
+
+
 def north(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return (-1, 0)
 
@@ -108,6 +128,10 @@ ADV_MAP = {
     "bl": backward_left,
     "v": vertical,
     "h": horizontal,
+    "np": north_polarize,
+    "sp": south_polarize,
+    "ep": east_polarize,
+    "wp": west_polarize,
     "n": north,
     "s": south,
     "e": east,
