@@ -1,1 +1,12 @@
-../main.py rule.art -c none -t 0 --no-clear --no-iteration | python rule_prettyprint.py
+#!/usr/bin/env bash
+
+EXAMPLES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(dirname "${EXAMPLES}")"
+
+"${ROOT}/main.py" \
+    "${EXAMPLES}/rule.art" \
+    --cursor none \
+    --tick 0 \
+    --no-clear \
+    --no-iteration \
+    | python "${EXAMPLES}/rule_prettyprint.py"
