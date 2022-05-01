@@ -129,3 +129,38 @@ TODO
 
 
 TODO
+
+**The Default Palette**
+
+Artvarks often find themselves working with common base palette unique to them (called their _signature_) and mix in other definitions to fit their current art piece.
+
+This is the default palette included in the ART interpreter to help you get started:
+
+```
+^ n 0 ^ n
+v s 0 v s
+> e 0 > e
+< w 0 < w
+
+. f 0 - #
+
+r r 0 r #
+l l 0 l #
+f f 0 f #
+b b 0 b #
+
+n n 0 n #
+s s 0 s #
+e e 0 e #
+w w 0 w #
+
+R R 1 R #
+L L 1 L #
+F F 1 F #
+B B 1 B #
+
+N N 1 N #
+S S 1 S #
+E E 1 E #
+W W 1 W #
+```
