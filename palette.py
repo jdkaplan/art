@@ -47,6 +47,16 @@ def backward_right(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, 
     return (clamp(br + rr), clamp(bc + rc))
 
 
+def vertical(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
+    dr, dc = direction
+    return (dr, 0)
+
+
+def horizontal(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
+    dr, dc = direction
+    return (0, dc)
+
+
 def north(direction: Optional[tuple[int, int]]) -> Optional[tuple[int, int]]:
     return (-1, 0)
 
@@ -96,6 +106,8 @@ ADV_MAP = {
     "fl": forward_left,
     "br": backward_right,
     "bl": backward_left,
+    "v": vertical,
+    "h": horizontal,
     "n": north,
     "s": south,
     "e": east,
