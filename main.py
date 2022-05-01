@@ -106,6 +106,12 @@ def main(args):
             print("Iteration: %d" % (iteration,))
 
         iteration += 1
+
+        if args.wait:
+            input()
+        else:
+            time.sleep(args.tick)
+
         if not canvas.simulate():
             if args.no_clear:
                 print()
@@ -116,11 +122,6 @@ def main(args):
             if not args.no_iteration:
                 print("Iteration: %d" % (iteration,))
             break
-
-        if args.wait:
-            input()
-        else:
-            time.sleep(args.tick)
 
 
 if __name__ == "__main__":
