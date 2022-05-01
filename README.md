@@ -196,7 +196,8 @@ An art file is formatted as a rectangle of ASCII text.  Execution of the program
 
 The _stability_ of a type of tile is a number designating how many times it must be interacted with by any brush before it decays to its next form.  For those which change immediately, they have a stability of precisely 1.  If for example, a tile had a stability of 5, it would have to be touched by a brush 5 times before transforming.
 
-**Spawn**: While not part of the normal tick-to-tick operations of ART, at the beginning (tick 0), some special tiles may spawn brushes to get things going.  These may spawn the brushes with a heading of any of the absolute headings described in the **Advance** section, including stopped.
+#### Spawn
+While not part of the normal tick-to-tick operations of ART, at the beginning (tick 0), some special tiles may spawn brushes to get things going.  These may spawn the brushes with a heading of any of the absolute headings described in the **Advance** section, including stopped.
 
 ### Palette
 
