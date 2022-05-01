@@ -159,14 +159,14 @@ The art component, which will be written into a `.art` file, is where the ART pr
 
 An art file is formatted as a rectangle of ASCII text.  Execution of the program is done in _ticks_ where _brushes_ (or _cursors_ if you prefer) move about on the art.  For each tile (character) touched by a brush, it is activated, and does three things:
 
-**Advance**: The interaction of a brush and a tile leaves the brush forever changed.  The advance portion of this effect alters the direction and in which the brush will move for the next tick or may even cause the brush to be destroyed.  All brushes can only move 0 or 1 tiles/tick in each given direction, and will wrap around to the other side of the artwork if they reach the edge. There are 24 different types of advancement:
+**Advance**: The interaction of a brush and a tile leaves the brush forever changed.  The advance portion of this effect alters the direction in which the brush will move for the next tick or may even cause the brush to be destroyed.  All brushes can only move 0 or 1 tiles per tick in each given direction, and will wrap around to the other side of the artwork if they reach the edge.  There are 24 different types of advancement:
 
 - Relative:
   - Forward: This causes the brush to advance in the same direction it was already headed in.
   - Backward: This causes the brush to go the opposite direction it was headed in.
   - Right: This causes the brush to turn 90 degrees to the right.
   - Left: This causes the brush to turn 90 degrees to the left.
-  - Forward-Right: This causes the brush to turn 45 degrees to the left.
+  - Forward-Right: This causes the brush to turn 45 degrees to the right.
   - Forward-Left: This causes the brush to turn 45 degrees to the left.
   - Backward-Right: This causes the brush to turn 135 degrees to the right.
   - Backward-Left: This causes the brush to turn 135 degrees to the left.
@@ -194,13 +194,13 @@ An art file is formatted as a rectangle of ASCII text.  Execution of the program
 
 **Transform**: Lastly, the tile itself may be changed as a result of the interaction.  Each tile has a transform character, which is the type of tile that appears at that spot once the next tick begins.  For particularly "stable" tiles, this may be the same type of tile, a null-transformation.  For others, they "decay" or "transform" into another type of tile immediately.  But life is not so black-and-white, and some tiles may be somewhere in between.  This is described by the _stability_ factor of a tile.
 
-The _Stability_ of a type of tile is a number designating how many times it must be interacted with by any brush before it decays to its next form.  For those which change immediately, they have a stability of precisely 1.  If for example, a tile had a stability of 5, it would have to be touched by a brush 5 times before transitioning.
+The _stability_ of a type of tile is a number designating how many times it must be interacted with by any brush before it decays to its next form.  For those which change immediately, they have a stability of precisely 1.  If for example, a tile had a stability of 5, it would have to be touched by a brush 5 times before transforming.
 
-**Spawn**: While not part of the normal tick-to-tick operations of ART, at the beginning (tick 0), some special tiles may spawn brushes to get things going.  These may spawn the brushes with a heading of any of the absolute headings described in _advance_, including stopped.
+**Spawn**: While not part of the normal tick-to-tick operations of ART, at the beginning (tick 0), some special tiles may spawn brushes to get things going.  These may spawn the brushes with a heading of any of the absolute headings described in the **Advance** section, including stopped.
 
 ### Palette
 
-Which tiles do what?  How can the art come to life? How do I spawn cursors?  The answers to all of these questions lie in the _palette_.  The palette is a specification of every defined tile-type and its **ARTS** behaviors.  A palette can specify behaviors for as few or as many (up to the limit of ASCII) tile-types as the artvark desires.  Any character not associated with a tile-type implicitly becomes a "destroy" tile, and will cause any cursors that contact them to be destroyed.  This can be useful for forming boundaries if wrapping is undesired behavior.
+Which tiles do what?  How can the art come to life?  How do I spawn brushes?  The answers to all of these questions lie in the _palette_.  The palette is a specification of every defined tile-type and its **ARTS** behaviors.  A palette can specify behaviors for as few or as many (up to the limit of ASCII) tile-types as the artvark desires.  Any character not associated with a tile-type implicitly becomes a "destroy" tile, and will cause any brushes that contact them to be destroyed.  This can be useful for forming boundaries if wrapping is undesired behavior.
 
 More specifically, it is a file where each line gives the specification for a single tile-type in the following format:
 
@@ -212,7 +212,7 @@ Let's walk through each of these elements:
 
 **Representation**
 
-This is a single ASCII character which will represent this tile type in the art.  For example, `a`, `;`, ` `, and `*` are all valid representations (see [https://www.ascii-code.com/](https://www.ascii-code.com/) for a table of ASCII).
+This is a single ASCII character which will represent this tile type in the art.  For example, `a`, `;`, ` `, and `*` are all valid representations.  We recommend using only [printable ASCII](https://en.wikipedia.org/wiki/ASCII#Printable_characters) characters.
 
 **Advancement**
 
@@ -245,11 +245,11 @@ This is a 1-2 character entry that will desribe the advancement rule tiles of th
 
 **Reproduction**
 
-This is a boolean, represented as a `1` or a `0`, stating whether or not this tile induces brushes to reproduce.  `1` means yes, and `0` means no here.
+This is a boolean, represented as a `1` or a `0`, stating whether this tile induces brushes to reproduce.  `1` means yes, and `0` means no here.
 
 **Transformation**
 
-This will include a single ASCII character which represents what the tile will transform into when it transitions or decays after contact with a brush.  However, this character can be prefixed with a whole decimal number which will indicate its _stability_, as described above.  For example, `6B` indicates a tile will, after 6 encounters with brushes, turn into a `B` tile.  If no stability prefix is given, the stability is assumed to be `1`.
+This will include a single ASCII character which represents what the tile will transform into when it transitions or decays after contact with a brush.  However, this character can be prefixed with a whole decimal number which will indicate its _stability_, as described above.  For example, `6B` indicates that a tile will, after 6 encounters with brushes, turn into a `B` tile.  If no stability prefix is given, the stability is assumed to be `1`.
 
 **Spawn**
 
@@ -301,7 +301,7 @@ E E 1 E #
 W W 1 W #
 ```
 
-## Bugs without Errors (Or How to Debug ART)
+## Bugs without Errors (or How to Debug ART)
 
 ART's design results in the wonderful feature that any `.art` will run without complaint.  Of course, sophisticated use cases that users will surely engage in may require some trial and error to manifest the artvark's vision.
 
