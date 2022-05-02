@@ -8,9 +8,13 @@ ART (or better known by its full name: **ARTS + Polarization**) is another hit l
 
 Really the name speaks for itself, and the language is very straightforward.  Just in case it's needed though, all of ART's behaviors and usage are documented below.
 
-## Rites of Passage
+## Examples
 
-<details><summary>Hello World</summary>
+### Rites of Passage
+
+[![hello.cast](https://asciinema.org/a/QX1ObuSRFy8dvtNE63tzAlJfT.svg)](https://asciinema.org/a/QX1ObuSRFy8dvtNE63tzAlJfT)
+
+<details><summary>Hello</summary>
 
 `hello.art`:
 
@@ -87,7 +91,15 @@ c e 0   #
 
 </details>
 
-<details><summary>Rule 110</summary>
+### Rule 110 (proof of Turing completeness)
+
+[![rule.cast](https://asciinema.org/a/NvMzEntT7HVVX1EwHfM2xmB8O.svg)](https://asciinema.org/a/NvMzEntT7HVVX1EwHfM2xmB8O)
+
+With the "output" lines extracted and rendered:
+
+[![rule_prettyprint.cast](https://asciinema.org/a/7QRTjtWk3DaWCTEsXXFQkgAnw.svg)](https://asciinema.org/a/7QRTjtWk3DaWCTEsXXFQkgAnw)
+
+<details><summary>Rule</summary>
 
 `rule.art`:
 
@@ -150,6 +162,12 @@ o X 0 1 #
 ```
 
 </details>
+
+### Other Examples
+
+A two (hex) digit adder (`2nums.art`): [2nums.cast](https://asciinema.org/a/BKpEvxCygVM858VB5lJWHVpzn)
+
+Lasers, pewpew!: [pewpew.cast](https://asciinema.org/a/ydSdyIjHvxTkyVvUElro78BsI)
 
 ## Program Components (or How to Make ART)
 
