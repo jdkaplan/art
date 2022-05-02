@@ -65,7 +65,7 @@ def parse_args():
         "-ni",
         "--no-iteration",
         default=False,
-        action='store_true',
+        action="store_true",
         help="Does not show the current iteration number",
     )
     parser.add_argument("art", type=str, help="The art to execute")
@@ -130,4 +130,7 @@ def main(args):
 
 if __name__ == "__main__":
     args = parse_args()
-    main(args)
+    try:
+        main(args)
+    except KeyboardInterrupt:
+        exit(2)
