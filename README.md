@@ -167,9 +167,9 @@ o X 0 1 #
 
 ### Other Examples
 
-A two (hex) digit adder (`2nums.art`): [2nums.cast](https://asciinema.org/a/BKpEvxCygVM858VB5lJWHVpzn)
+[A two (hex) digit adder (`2nums.art`)](https://asciinema.org/a/BKpEvxCygVM858VB5lJWHVpzn)
 
-Lasers, pewpew!: [pewpew.cast](https://asciinema.org/a/ydSdyIjHvxTkyVvUElro78BsI)
+[Lasers, pewpew! (`pewpew.art`)](https://asciinema.org/a/ydSdyIjHvxTkyVvUElro78BsI)
 
 ## Program Components (or How to Make ART)
 
