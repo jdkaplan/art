@@ -12,6 +12,8 @@ Really the name speaks for itself, and the language is very straightforward.  Ju
 
 ### Rites of Passage
 
+#### Hello
+
 [![hello.cast](https://asciinema.org/a/QX1ObuSRFy8dvtNE63tzAlJfT.svg)](https://asciinema.org/a/QX1ObuSRFy8dvtNE63tzAlJfT)
 
 <details><summary>Hello</summary>
@@ -91,7 +93,7 @@ c e 0   #
 
 </details>
 
-### Rule 110 (proof of Turing completeness)
+#### Rule 110 (proof of Turing completeness)
 
 [![rule.cast](https://asciinema.org/a/NvMzEntT7HVVX1EwHfM2xmB8O.svg)](https://asciinema.org/a/NvMzEntT7HVVX1EwHfM2xmB8O)
 
