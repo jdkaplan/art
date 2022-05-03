@@ -1,6 +1,12 @@
 import enum
 
 
+def splitlines_with_pad(s):
+    lines = s.splitlines()
+    max_len = max(len(l) for l in lines)
+    return [line.ljust(max_len) for line in lines]
+
+
 class Brush:
     def __init__(self, r, c, direction):
         self.r = r
@@ -43,7 +49,7 @@ class Simulator:
         fake_lang = (None, None, None, None, 1)
         self.grid = [
             [(language.get(col, fake_lang)[stability_index], col) for col in row]
-            for row in grid.splitlines()
+            for row in splitlines_with_pad(grid)
         ]
         self.row_count = len(self.grid)
         self.col_count = max(len(row) for row in self.grid)
